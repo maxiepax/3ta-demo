@@ -1,0 +1,46 @@
+apiVersion: cluster.x-k8s.io/v1beta1
+kind: Cluster
+metadata:
+  name: vks-01
+  namespace: dev-w6vw5
+spec:
+  clusterNetwork:
+    pods:
+      cidrBlocks:
+        - 192.168.156.0/20
+    services:
+      cidrBlocks:
+        - 10.96.0.0/12
+    serviceDomain: cluster.local
+  topology:
+    class: builtin-generic-v3.3.0
+    version: v1.33.1---vmware.1-fips-vkr.2
+    variables:
+      - name: kubernetes
+        value:
+          certificateRotation:
+            enabled: true
+            renewalDaysBeforeExpiry: 90
+      - name: vmClass
+        value: best-effort-xsmall
+      - name: storageClass
+        value: vi1-paris-cl01-vsan
+    controlPlane:
+      replicas: 1
+      metadata:
+        annotations:
+          run.tanzu.vmware.com/resolve-os-image: os-name=photon, content-library=cl-2fb8b3064f1b4b0ad
+    workers:
+      machineDeployments:
+        - class: node-pool
+          name: vks-01-nodepool-w7iz
+          replicas: 1
+          metadata:
+            annotations:
+              run.tanzu.vmware.com/resolve-os-image: os-name=photon, content-library=cl-2fb8b3064f1b4b0ad
+          variables:
+            overrides:
+              - name: node
+                value:
+                  labels:
+                    app: 3ta

@@ -1,0 +1,24 @@
+apiVersion: vmoperator.vmware.com/v1alpha3
+kind: VirtualMachine
+metadata:
+  name: mysql-vm
+  namespace: dev-w6vw5
+  labels:
+    vm-selector: mysql-vm
+    mysql-lb: vm-lb-selector
+    topology.kubernetes.io/zone: zone1
+spec:
+  className: best-effort-small
+  # Friendly image name: ubuntu-24.04
+  imageName: vmi-13845f5455c77f234
+  storageClass: vi1-paris-cl01-vsan
+  powerState: PoweredOn
+  volumes:
+    - name: mysql-vm-pvc-0
+      persistentVolumeClaim:
+        claimName: mysql-vm-pvc-0
+  bootstrap:
+    cloudInit:
+      rawCloudConfig:
+        name: mysql-vm-bootstrap-secret
+        key: user-data

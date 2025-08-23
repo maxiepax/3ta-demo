@@ -1,0 +1,82 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend-app
+spec:
+  selector:
+    app: backend-app
+  ports:
+    - name: http
+      port: 5050
+      targetPort: 5050
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-app-deployment
+  labels:
+    app: backend-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: backend-app
+  template:
+    metadata:
+      labels:
+        app: backend-app
+      annotations:
+        vault.hashicorp.com/agent-inject: 'true'
+        vault.hashicorp.com/role: 'dev-w6vw5'
+        vault.hashicorp.com/agent-inject-secret-dbcreds: 'secret/data/dev-w6vw5/dbcreds'
+        vault.hashicorp.com/tls-skip-verify: 'true'
+        vault.hashicorp.com/secret-volume-path: "/app/vault/secrets"
+        vault.hashicorp.com/agent-inject-file-dbcreds: "db.env"
+        vault.hashicorp.com/agent-run-as-user: "10001"
+        vault.hashicorp.com/agent-inject-perms-dbcreds: "0440"
+        vault.hashicorp.com/agent-inject-template-dbcreds: |
+          {{- with secret "secret/data/dev-w6vw5/dbcreds" -}}
+          DB_NAME={{ .Data.data.DB_NAME }}
+          DB_USER={{ .Data.data.DB_USER }}
+          DB_PASSWORD={{ .Data.data.DB_PASSWORD }}
+          {{- end }}
+    spec:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 10001
+        runAsGroup: 10001
+      serviceAccountName: test-service-account
+      volumes:
+        - name: vault-token
+          secret:
+            secretName: test-service-account-token
+      containers:
+        - name: backend-app
+          image: jswolf059/backend:v2.0.0
+          imagePullPolicy: Always
+          volumeMounts:
+          - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+            name: vault-token
+          ports:
+            - containerPort: 5050
+          env:
+          - name: MYSQL_HOST
+            value: 32.32.0.11
+      imagePullSecrets:
+      - name: docker-hub-creds
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend-app-service
+spec:
+  selector:
+    app: backend-app
+  ports:
+    - name: web-app-port
+      protocol: TCP
+      port: 5000
+      targetPort: 5000
+  type: LoadBalancer

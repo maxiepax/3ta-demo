@@ -1,0 +1,18 @@
+apiVersion: vmoperator.vmware.com/v1alpha3
+kind: VirtualMachineService
+metadata:
+  name: mysql-lb
+  namespace: dev-w6vw5
+spec:
+  selector:
+    mysql-lb: vm-lb-selector
+  type: LoadBalancer
+  ports:
+    - name: ssh
+      protocol: TCP
+      port: 22
+      targetPort: 22
+    - name: mysql
+      protocol: TCP
+      port: 3306
+      targetPort: 3306
