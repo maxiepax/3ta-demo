@@ -38,3 +38,8 @@ spec:
       namespace: dev-w6vw5
       jsonPointers:
         - /spec/imageName
+    - group: vmoperator.vmware.com
+      kind: VirtualMachineService
+      jsonPointers:
+        - /metadata/annotations
+        - /spec/selector
