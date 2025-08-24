@@ -1,7 +1,7 @@
 apiVersion: vmoperator.vmware.com/v1alpha3
 kind: VirtualMachineService
 metadata:
-  name: mysql-lb
+  name: mysql-vm-lb-azvo
   namespace: dev-w6vw5
 spec:
   selector:
