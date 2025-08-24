@@ -43,5 +43,5 @@ spec:
               - name: node
                 value:
                   labels:
-
                     app: 3ta
+
