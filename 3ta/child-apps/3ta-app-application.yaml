@@ -2,7 +2,9 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: 3ta-app
-  namespace: demo
+  annotations:
+    # Runs after vks deployment
+    argocd.argoproj.io/sync-wave: "2" 
 spec:
   project: default
   source:
@@ -14,11 +16,9 @@ spec:
   destination:
     # This is critical: you want to deploy to the newly registered cluster
     # Use the cluster context name that Argo CD sees after registration
-    name: 'vks-01-admin@vks-01'
-    namespace: demo
+    name: 'supervisor:vks-01:vks-01'
+    namespace: default
   syncPolicy:
     automated:
       prune: true
       selfHeal: true
-  # Deploy after the cluster is registered
-  syncWave: 2
