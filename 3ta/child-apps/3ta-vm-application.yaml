@@ -31,4 +31,10 @@ spec:
       name: mysql-vm-bootstrap-secret
       namespace: dev-w6vw5
       jqPathExpressions:
-        - '.data."user-data"'  
+        - '.data."user-data"'
+    - group: vmoperator.vmware.com
+      kind: VirtualMachine
+      name: mysql-vm
+      namespace: dev-w6vw5
+      jsonPointers:
+        - /spec/imageName
