@@ -34,7 +34,7 @@ spec:
       machineDeployments:
         - class: node-pool
           name: vks-01-nodepool-w7iz
-          replicas: 1
+          replicas: 2
           metadata:
             annotations:
               run.tanzu.vmware.com/resolve-os-image: os-name=photon, content-library=cl-2fb8b3064f1b4b0ad
@@ -43,4 +43,5 @@ spec:
               - name: node
                 value:
                   labels:
+
                     app: 3ta
