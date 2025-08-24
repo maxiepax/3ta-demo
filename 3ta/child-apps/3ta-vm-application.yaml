@@ -20,3 +20,15 @@ spec:
     automated:
       prune: true
       selfHeal: true
+  ignoreDifferences:
+    - group: ""
+      kind: Secret
+      name: mysql-vm-bootstrap-secret
+      namespace: dev-w6vw5
+      jsonPointers:
+        - /metadata/annotations  
+      kind: Secret
+      name: mysql-vm-bootstrap-secret
+      namespace: dev-w6vw5
+      jqPathExpressions:
+        - '.data."user-data"'  
