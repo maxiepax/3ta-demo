@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: vault-injector
+  namespace: default
   labels:
     app.kubernetes.io/name: vault-injector
     app.kubernetes.io/instance: vault
@@ -74,6 +75,7 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: vault-injector
+  namespace: default
   labels:
     app.kubernetes.io/name: vault-injector
     app.kubernetes.io/instance: vault
@@ -82,6 +84,7 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
   name: vault-injector-clusterrole
+  namespace: default
   labels:
     app.kubernetes.io/name: vault-injector
     app.kubernetes.io/instance: vault
@@ -102,6 +105,7 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
   name: vault-injector-binding
+  namespace: default
   labels:
     app.kubernetes.io/name: vault-injector
     app.kubernetes.io/instance: vault
@@ -112,11 +116,13 @@ roleRef:
 subjects:
   - kind: ServiceAccount
     name: vault-injector
+    namespace: default
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
   name: vault-injector-role
+  namespace: default
   labels:
     app.kubernetes.io/name: vault-injector
     app.kubernetes.io/instance: vault
@@ -140,6 +146,7 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
   name: vault-injector-rolebinding
+  namespace: default
   labels:
     app.kubernetes.io/name: vault-injector
     app.kubernetes.io/instance: vault
@@ -150,11 +157,13 @@ roleRef:
 subjects:
   - kind: ServiceAccount
     name: vault-injector
+    namespace: default
 ---
 apiVersion: admissionregistration.k8s.io/v1
 kind: MutatingWebhookConfiguration
 metadata:
   name: vault-agent-injector-cfg
+  namespace: default
   labels:
     app.kubernetes.io/name: vault-injector
     app.kubernetes.io/instance: vault
@@ -168,6 +177,7 @@ webhooks:
       service:
         name: vault-agent-injector-svc
         path: "/mutate"
+        namespace: default
       caBundle: ""
     rules:
       - operations: ["CREATE", "UPDATE"]
@@ -186,6 +196,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: vault-agent-injector-svc
+  namespace: default
   labels:
     app.kubernetes.io/name: vault-injector
     app.kubernetes.io/instance: vault
