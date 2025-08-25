@@ -1,0 +1,4 @@
+
+kubectl get ns demo -o json \
+| jq '.spec.finalizers=[]' \
+| kubectl replace --raw /api/v1/namespaces/demo/finalize -f -
