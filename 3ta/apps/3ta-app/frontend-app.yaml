@@ -17,6 +17,7 @@ spec:
       containers:
         - name: frontend-app
           image: jswolf059/frontend
+          imagePullPolicy: Always
           ports:
             - containerPort: 5000
           env:
