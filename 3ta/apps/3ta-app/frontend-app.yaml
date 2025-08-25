@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: frontend-app
-          image: jswolf059/frontend
+          image: jswolf059/frontend:v2.0.0
           imagePullPolicy: Always
           ports:
             - containerPort: 5000
@@ -26,7 +26,6 @@ spec:
       imagePullSecrets:
       - name: docker-hub-creds
 ---
-
 apiVersion: v1
 kind: Service
 metadata:
