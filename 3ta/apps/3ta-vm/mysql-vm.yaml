@@ -6,7 +6,7 @@ metadata:
   labels:
     vm-selector: mysql-vm-lb-azvo
     mysql-lb: vm-lb-selector
-    topology.kubernetes.io/zone: zone1
+    topology.kubernetes.io/zone: zone-b
 spec:
   className: best-effort-small
   # Friendly image name: ubuntu-24.04
