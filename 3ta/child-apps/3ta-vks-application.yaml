@@ -14,7 +14,7 @@ spec:
     directory:
       recurse: true
   destination:
-    server: "https://32.32.0.2:443"
+    server: "https://192.168.48.5:443"
     namespace: ecom-8b6tg
   syncPolicy:
     automated:
