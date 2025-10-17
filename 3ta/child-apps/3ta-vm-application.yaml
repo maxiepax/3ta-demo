@@ -4,18 +4,18 @@ metadata:
   name: 3ta-vm
   annotations:
     # Runs in parallel with 3ta-vks
-    argocd.argoproj.io/sync-wave: "-1" 
+    argocd.argoproj.io/sync-wave: "-1"
 spec:
   project: default
   source:
-    repoURL: 'https://github.com/KBrookfield/3ta-demo'
+    repoURL: 'https://github.com/maxiepax/3ta-demo'
     targetRevision: main
     path: 3ta/apps/3ta-vm
     directory:
       recurse: true
   destination:
     server: 'https://32.32.0.2:443'
-    namespace: dev-w6vw5
+    namespace: ecom-8b6tg
   syncPolicy:
     automated:
       prune: true
@@ -24,18 +24,18 @@ spec:
     - group: ""
       kind: Secret
       name: mysql-vm-bootstrap-secret
-      namespace: dev-w6vw5
+      namespace: ecom-8b6tg
       jsonPointers:
-        - /metadata/annotations  
+        - /metadata/annotations
       kind: Secret
       name: mysql-vm-bootstrap-secret
-      namespace: dev-w6vw5
+      namespace: ecom-8b6tg
       jqPathExpressions:
         - '.data."user-data"'
     - group: vmoperator.vmware.com
       kind: VirtualMachine
       name: mysql-vm
-      namespace: dev-w6vw5
+      namespace: ecom-8b6tg
       jsonPointers:
         - /spec/imageName
     - group: vmoperator.vmware.com

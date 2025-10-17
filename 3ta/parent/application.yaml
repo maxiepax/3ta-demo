@@ -2,18 +2,18 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: 3ta-parent
-  namespace: dev-w6vw5
+  namespace: ecom-8b6tg
 spec:
   project: default
   source:
-    repoURL: 'https://github.com/KBrookfield/3ta-demo'
+    repoURL: "https://github.com/maxiepax/3ta-demo"
     targetRevision: main
-    path: 3ta/child-apps    
+    path: 3ta/child-apps
     directory:
-      recurse: true   
+      recurse: true
   destination:
-    server: 'https://32.32.0.2:443'
-    namespace: dev-w6vw5
+    server: "https://32.32.0.2:443"
+    namespace: ecom-8b6tg
   syncPolicy:
     automated:
       prune: true

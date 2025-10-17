@@ -2,7 +2,7 @@ apiVersion: vmoperator.vmware.com/v1alpha3
 kind: VirtualMachine
 metadata:
   name: mysql-vm
-  namespace: dev-w6vw5
+  namespace: ecom-8b6tg
   labels:
     vm-selector: mysql-vm-lb-azvo
     mysql-lb: vm-lb-selector
@@ -10,8 +10,8 @@ metadata:
 spec:
   className: best-effort-small
   # Friendly image name: ubuntu-24.04
-  imageName: vmi-13845f5455c77f234
-  storageClass: vi1-paris-cl01-vsan
+  imageName: vmi-0fc4c067a6f24a195
+  storageClass: vsan-default-storage-policy
   powerState: PoweredOn
   bootstrap:
     cloudInit:

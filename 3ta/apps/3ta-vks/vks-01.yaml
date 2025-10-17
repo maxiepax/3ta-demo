@@ -2,7 +2,7 @@ apiVersion: cluster.x-k8s.io/v1beta1
 kind: Cluster
 metadata:
   name: vks-01
-  namespace: dev-w6vw5
+  namespace: ecom-8b6tg
 spec:
   clusterNetwork:
     pods:
@@ -24,12 +24,12 @@ spec:
       - name: vmClass
         value: best-effort-xsmall
       - name: storageClass
-        value: vi1-paris-cl01-vsan
+        value: vsan-default-storage-policy
     controlPlane:
       replicas: 1
       metadata:
         annotations:
-          run.tanzu.vmware.com/resolve-os-image: os-name=photon, content-library=cl-2fb8b3064f1b4b0ad
+          run.tanzu.vmware.com/resolve-os-image: os-name=photon, content-library=cl-23c0447de00e67e0a
     workers:
       machineDeployments:
         - class: node-pool
@@ -37,11 +37,10 @@ spec:
           replicas: 2
           metadata:
             annotations:
-              run.tanzu.vmware.com/resolve-os-image: os-name=photon, content-library=cl-2fb8b3064f1b4b0ad
+              run.tanzu.vmware.com/resolve-os-image: os-name=photon, content-library=cl-23c0447de00e67e0a
           variables:
             overrides:
               - name: node
                 value:
                   labels:
                     app: 3ta
-
