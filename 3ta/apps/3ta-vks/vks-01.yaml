@@ -14,7 +14,7 @@ spec:
     serviceDomain: cluster.local
   topology:
     class: builtin-generic-v3.3.0
-    version: v1.33.1---vmware.1-fips-vkr.2
+    version: v1.33.3---vmware.1-fips
     variables:
       - name: kubernetes
         value:
